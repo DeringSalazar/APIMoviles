@@ -1,4 +1,4 @@
-import * as teacherService from '../services/teacher.service.js';
+import * as teacherService from '../services/anclaje.service.js';
 
 export const getAll = async (req, res) => {
   try {
