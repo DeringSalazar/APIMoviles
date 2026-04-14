@@ -1,14 +1,14 @@
-const anclajeService = require('../services/anclaje.service.js');
+const autoService = require('../services/autoYCargo.service');
 
-class AnclajeController {
-  constructor(anclajeService) {
-    this.anclajeService = anclajeService;
+class AutoController {
+  constructor(autoService) {
+    this.autoService = autoService;
   }
 
   getAll = async (req, res) => {
     try {
-      const anclajes = await this.anclajeService.getAll();
-      res.json(anclajes);
+      const auto = await this.autoService.getAll();
+      res.json(auto);
     } catch (err) {
       console.error('Error en consulta:', err);
       res.status(500).json({ error: 'Error en la base de datos' });
@@ -22,13 +22,13 @@ class AnclajeController {
 
     try {
       console.log('ID recibido:', req.params.id);
-      const anclaje = await this.anclajeService.getById(req.params.id);
+      const auto = await this.autoService.getById(req.params.id);
 
-      if (!anclaje) {
+      if (!auto) {
         return res.status(404).json({ error: 'Producto no encontrado' });
       }
 
-      res.status(200).json(anclaje);
+      res.status(200).json(auto);
     } catch (err) {
       console.error('Error en consulta:', err);
       res.status(500).json({ error: 'Error en la base de datos' });
@@ -41,7 +41,7 @@ class AnclajeController {
     }
 
     try {
-      const pdfData = await this.anclajeService.getPdfPage(req.params.id);
+      const pdfData = await this.autoService.getPdfPage(req.params.id);
 
       if (!pdfData) {
         return res.status(404).json({ error: 'Producto no encontrado' });
@@ -55,4 +55,4 @@ class AnclajeController {
   };
 }
 
-module.exports = new AnclajeController(anclajeService);
+module.exports = new AutoController(autoService);

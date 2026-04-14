@@ -1,5 +1,5 @@
 const express = require('express');
-const anclajeController = require('../controllers/anclaje.controller.js');
+const autoController = require('../controllers/autoYCargo.controller');
 
 /**
  * @swagger
@@ -21,7 +21,7 @@ const router = express.Router();
  *       500:
  *         description: Error en la base de datos
  */
-router.get('/', anclajeController.getAll);
+router.get('/', autoController.getAll);
 
 /**
  * @swagger
@@ -46,7 +46,7 @@ router.get('/', anclajeController.getAll);
  *       500:
  *         description: Error en la base de datos
  */
-router.get('/:id', anclajeController.getById);
+router.get('/:id', autoController.getById);
 
 /**
  * @swagger
@@ -71,6 +71,6 @@ router.get('/:id', anclajeController.getById);
  *       500:
  *         description: Error en la base de datos
  */
-router.get('/:id/pdf', anclajeController.getPdfPage);
+router.get('/:id/pdf', autoController.getPdfPage);
 
 module.exports = router;

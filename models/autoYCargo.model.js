@@ -1,7 +1,7 @@
 const { pool } = require('../services/db.service.js');
 
-class AnclajeModel {
-  async getAllAnclajeCards() {
+class AutoYCargoModel {
+  async getAllAutoCards() {
     try {
       const { rows } = await pool.query(`
         SELECT 
@@ -15,16 +15,16 @@ class AnclajeModel {
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
-        WHERE dc.category_slug = '05'
+        WHERE dc.category_slug = '04'
       `);
       return rows || [];
     } catch (error) {
-      console.error('Error en getAllAnclajeCard:', error);
+      console.error('Error en getAllAutoCard:', error);
       throw error;
     }
   }
   
-  async getAnclajeDetail(productId) {
+  async getAutoDetail(productId) {
     try {
       console.log('Obteniendo detalles para el producto con ID:', productId);
       const { rows } = await pool.query(`
@@ -40,7 +40,7 @@ class AnclajeModel {
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
-        WHERE dc.category_slug = '05'
+        WHERE dc.category_slug = '04'
           AND prod ->> 'id' = $1
       `, [productId]);
 
@@ -60,12 +60,12 @@ class AnclajeModel {
       };
 
     } catch (error) {
-      console.error('Error en getAnclajeDetail:', error);
+      console.error('Error en getAutoDetail:', error);
       throw error;
     }
   }
 
-  async getAnclajePdfPage(productId) {
+  async getAutoPdfPage(productId) {
     try {
       const { rows } = await pool.query(`
         SELECT 
@@ -75,7 +75,7 @@ class AnclajeModel {
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
-        WHERE dc.category_slug = '05'
+        WHERE dc.category_slug = '04'
           AND prod ->> 'id' = $1
       `, [productId]);
 
@@ -88,10 +88,10 @@ class AnclajeModel {
       };
 
     } catch (error) {
-      console.error('Error en getAnclajePdfPage:', error);
+      console.error('Error en getAutoPdfPage:', error);
       throw error;
     }
   }
 }
 
-module.exports = new AnclajeModel();
+module.exports = new AutoYCargoModel();
