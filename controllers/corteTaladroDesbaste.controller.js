@@ -1,17 +1,17 @@
-const anclajeService = require('../services/anclaje.service.js');
+const corteTaladroDesbasteService = require('../services/corteTaladroDesbaste.service.js');
 
-class AnclajeController {
-  constructor(anclajeService) {
-    this.anclajeService = anclajeService;
+class CorteTaladroDesbasteController {
+  constructor(corteTaladroDesbasteService) {
+    this.corteTaladroDesbasteService = corteTaladroDesbasteService;
   }
 
   getAll = async (req, res) => {
     try {
-      const anclajes = await this.anclajeService.getAll();
-      res.json(anclajes);
+      const productos = await this.corteTaladroDesbasteService.getAll();
+      res.json(productos);
     } catch (err) {
       console.error('Error en consulta:', err);
-      res.status(500).json({ error: 'Error en la base de datos', details: err });
+      res.status(500).json({ error: 'Error en la base de datos' });
     }
   };
 
@@ -22,13 +22,13 @@ class AnclajeController {
 
     try {
       console.log('ID recibido:', req.params.id);
-      const anclaje = await this.anclajeService.getById(req.params.id);
+      const producto = await this.corteTaladroDesbasteService.getById(req.params.id);
 
-      if (!anclaje) {
+      if (!producto) {
         return res.status(404).json({ error: 'Producto no encontrado' });
       }
 
-      res.status(200).json(anclaje);
+      res.status(200).json(producto);
     } catch (err) {
       console.error('Error en consulta:', err);
       res.status(500).json({ error: 'Error en la base de datos' });
@@ -41,7 +41,7 @@ class AnclajeController {
     }
 
     try {
-      const pdfData = await this.anclajeService.getPdfPage(req.params.id);
+      const pdfData = await this.corteTaladroDesbasteService.getPdfPage(req.params.id);
 
       if (!pdfData) {
         return res.status(404).json({ error: 'Producto no encontrado' });
@@ -55,4 +55,4 @@ class AnclajeController {
   };
 }
 
-module.exports = new AnclajeController(anclajeService);
+module.exports = new CorteTaladroDesbasteController(corteTaladroDesbasteService);

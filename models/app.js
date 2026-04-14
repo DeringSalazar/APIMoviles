@@ -11,10 +11,12 @@ app.get('/', (req, res) => {
 // Importar rutas
 const anclajeRoutes = require('../routes/anclaje.route.js');
 const autoRoutes = require('../routes/autoYCargo.route.js');
+const corteTaladroDesbasteRoutes = require('../routes/corteTaladroDesbaste.routes.js');
 
 
 app.use('/anclaje', anclajeRoutes);
 app.use('/auto', autoRoutes);
+app.use('/corte', corteTaladroDesbasteRoutes);
 testDbConnection();
 
 module.exports = app;
