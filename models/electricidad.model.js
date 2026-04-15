@@ -1,4 +1,4 @@
-const { pool } = require('../services/db.service.js');
+const { pool } = require('../services/db.js');
 
 class Electricidad {
 

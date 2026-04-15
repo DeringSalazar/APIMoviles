@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const { testDbConnection } = require('../services/db.service');
+const { testDbConnection } = require('../services/db.js');
 
 // Middlewares
 app.use(express.json());
