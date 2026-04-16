@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const { testDbConnection } = require('../services/db.service');
 
@@ -15,6 +16,9 @@ const tornilleriaRoutes = require('../routes/tornilleria.route.js');
 const orsyRoutes = require('../routes/orsy.route');
 const agroRoutes = require('../routes/agro.route');
 const corteTaladroDesbasteRoutes = require('../routes/corteTaladroDesbaste.routes.js');
+const electricidadRoutes = require('../routes/electricidad.routes.js');
+const herramientasRoutes = require('../routes/herramientas.routes.js');
+const catalogoRoutes = require('../routes/catalogo.routes.js'); 
 
 app.use('/anclaje', anclajeRoutes);
 app.use('/auto', autoRoutes);
@@ -23,6 +27,10 @@ app.use('/tornilleria', tornilleriaRoutes);
 app.use('/orsy', orsyRoutes);
 app.use('/agro', agroRoutes);
 app.use('/corte', corteTaladroDesbasteRoutes);
+app.use(express.static(path.join(__dirname, '../public')));
+app.use('/electricidad', electricidadRoutes);
+app.use('/herramientas', herramientasRoutes);
+app.use('/catalogo', catalogoRoutes);
 
 testDbConnection();
 
