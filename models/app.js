@@ -14,6 +14,7 @@ const quimicosRoutes = require('../routes/quimicos.route.js');
 const tornilleriaRoutes = require('../routes/tornilleria.route.js');
 const orsyRoutes = require('../routes/orsy.route');
 const agroRoutes = require('../routes/agro.route');
+const corteTaladroDesbasteRoutes = require('../routes/corteTaladroDesbaste.routes.js');
 
 app.use('/anclaje', anclajeRoutes);
 app.use('/auto', autoRoutes);
@@ -21,6 +22,7 @@ app.use('/quimicos', quimicosRoutes);
 app.use('/tornilleria', tornilleriaRoutes);
 app.use('/orsy', orsyRoutes);
 app.use('/agro', agroRoutes);
+app.use('/corte', corteTaladroDesbasteRoutes);
 
 testDbConnection();
 
