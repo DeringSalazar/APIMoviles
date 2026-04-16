@@ -94,4 +94,4 @@ class OrsyModel {
   }
 }
 
-module.exports = new AnclajeModel();
+module.exports = new OrsyModel();

@@ -15,7 +15,7 @@ class AgroModel {
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
-        WHERE dc.category_slug = 'agro'
+        WHERE dc.category_slug = '11'
       `);
       return rows || [];
     } catch (error) {
@@ -42,7 +42,7 @@ class AgroModel {
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
-        WHERE dc.category_slug = 'agro'
+        WHERE dc.category_slug = '11'
           AND prod ->> 'id' = $1
       `, [productId]);
 
@@ -85,7 +85,7 @@ class AgroModel {
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
-        WHERE dc.category_slug = 'agro'
+        WHERE dc.category_slug = '11'
           AND prod ->> 'articleNumber' = $1
       `, [articleNumber]);
 
@@ -111,7 +111,7 @@ class AgroModel {
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
-        WHERE dc.category_slug = 'agro'
+        WHERE dc.category_slug = '11'
           AND (prod ->> 'name' ILIKE $1 OR prod ->> 'articleNumber' ILIKE $1)
       `, [`%${searchTerm}%`]);
 

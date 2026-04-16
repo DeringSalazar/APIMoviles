@@ -1,4 +1,4 @@
-const autoModel = require('../models/orsy.model');
+const orsyModel = require('../models/orsy.model');
 
 class OrsyService {
   constructor(orsyModel) {

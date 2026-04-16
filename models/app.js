@@ -1,10 +1,7 @@
 const express = require('express');
 const app = express();
-const { testDbConnection } = require('../services/db');
+const { testDbConnection } = require('../services/db.js');
 
-
-const orsyRoute = require('../routes/orsy.route');
-const agroRoute = require('../routes/agro.route');
 
 app.use(express.json());
 
@@ -12,9 +9,13 @@ app.get('/', (req, res) => {
   res.json({ message: 'API funcionando correctamente' });
 });
 
-const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, async () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
-  await testDbConnection();
-});
+const orsyRoutes = require('../routes/orsy.route');
+const agroRoutes = require('../routes/agro.route');
+
+app.use('/orsy', orsyRoutes);
+app.use('/agro', agroRoutes);
+
+testDbConnection();
+
+module.exports = app;
