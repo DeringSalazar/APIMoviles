@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const { testDbConnection } = require('../services/db');
 
+
+const orsyRoute = require('../routes/orsy.route');
+const agroRoute = require('../routes/agro.route');
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
