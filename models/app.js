@@ -1,7 +1,16 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const cors = require('cors');
 const { testDbConnection } = require('../services/db.service');
+
+app.use(cors({
+  origin: 'https://moviles-wurth-e7uewfv7c-dering1675-gmailcoms-projects.vercel.app/',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 200
+}));
 
 app.use(express.json());
 
