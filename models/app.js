@@ -19,6 +19,8 @@ const corteTaladroDesbasteRoutes = require('../routes/corteTaladroDesbaste.route
 const electricidadRoutes = require('../routes/electricidad.routes.js');
 const herramientasRoutes = require('../routes/herramientas.routes.js');
 const catalogoRoutes = require('../routes/catalogo.routes.js'); 
+const seguridadHigieneRoutes = require('../routes/seguridadHigiene.route.js');
+const maquinasRoutes = require('../routes/maquinas.routes.js');
 
 app.use('/anclaje', anclajeRoutes);
 app.use('/auto', autoRoutes);
@@ -31,6 +33,8 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use('/electricidad', electricidadRoutes);
 app.use('/herramientas', herramientasRoutes);
 app.use('/catalogo', catalogoRoutes);
+app.use('/seguridad-higiene', seguridadHigieneRoutes);
+app.use('/maquinas', maquinasRoutes);
 
 testDbConnection();
 
