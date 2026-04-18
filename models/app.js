@@ -5,7 +5,7 @@ const cors = require('cors');
 const { testDbConnection } = require('../services/db.service');
 
 app.use(cors({
-  origin: 'https://moviles-wurth-e7uewfv7c-dering1675-gmailcoms-projects.vercel.app/',
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
