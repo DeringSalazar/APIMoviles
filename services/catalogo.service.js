@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config();
 
-
-const CATALOGO_WURTH_URL = 'https://zelptppjet.ufs.sh/f/GI0GSIE29OX0gd2GpoZJAYIGWmeavJNpQtl8SRub6UnP5y0B';
+const CATALOGO_WURTH_URL = process.env.CATALOGO_WURTH_URL;
 
 const getViewerTemplate = (page) => {
   try {
