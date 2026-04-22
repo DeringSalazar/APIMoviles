@@ -34,6 +34,7 @@ class OrsyModel {
           sub ->> 'name' AS subcategory_name,
           prod ->> 'id' AS product_id,
           prod ->> 'name' AS product_name,
+          prod ->> 'pdfPage' AS pdf_page,
           COALESCE(prod -> 'features', '[]'::jsonb) AS features,
           COALESCE(prod -> 'applications', '[]'::jsonb) AS applications,
           COALESCE(prod -> 'images', '[]'::jsonb) AS images
