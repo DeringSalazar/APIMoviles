@@ -10,21 +10,11 @@ class AgroService {
   }
 
   async getById(id) {
-    const result = await this.agroModel.getAgroDetail(id);
-    return result;
+    return await this.agroModel.getAgroDetail(id);
   }
 
-  async getByArticleNumber(articleNumber) {
-    const result = await this.agroModel.getAgroByArticle(articleNumber);
-    return result;
-  }
-
-  async search(searchTerm) {
-    if (!searchTerm || searchTerm.trim() === '') {
-      return [];
-    }
-    const result = await this.agroModel.searchAgro(searchTerm);
-    return result;
+  async getPdfPage(id) {
+    return await this.agroModel.getAgroPdfPage(id);
   }
 }
 

@@ -10,13 +10,11 @@ class OrsyService {
   }
 
   async getById(id) {
-    const result = await this.orsyModel.getOrsyDetail(id);
-    return result;
+    return await this.orsyModel.getOrsyDetail(id);
   }
 
   async getPdfPage(id) {
-    const result = await this.orsyModel.getOrsyPdfPage(id);
-    return result;
+    return await this.orsyModel.getOrsyPdfPage(id);
   }
 }
 
