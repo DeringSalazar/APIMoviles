@@ -13,7 +13,7 @@ class AutoYCargoModel {
           prod ->> 'id' AS product_id,
           prod ->> 'name' AS product_name,
           prod ->> 'pdfPage' AS pdf_page,
-          prod -> 'images' ->> 0 AS product_image
+          COALESCE(prod -> 'images', '[]'::jsonb) AS product_image
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
