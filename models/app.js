@@ -28,7 +28,7 @@ const corteTaladroDesbasteRoutes = require('../routes/corteTaladroDesbaste.route
 const electricidadRoutes = require('../routes/electricidad.routes.js');
 const herramientasRoutes = require('../routes/herramientas.routes.js');
 const catalogoRoutes = require('../routes/catalogo.routes.js'); 
-const seguridadHigieneRoutes = require('../routes/seguridadHigiene.route.js');
+const seguridadHigieneRoutes = require('../routes/seguridad.route.js');
 const maquinasRoutes = require('../routes/maquinas.routes.js');
 
 app.use('/anclaje', anclajeRoutes);
