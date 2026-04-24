@@ -1,11 +1,11 @@
 const express = require('express');
-const seguridadHigieneController = require('../controllers/seguridadHigiene.controller');
+const seguridadHigieneController = require('../controllers/seguridadHigiene.controller.js');
 
 /**
  * @swagger
  * tags:
- *   name: Seguridad e Higiene
- *   description: Gestión de productos de Seguridad e Higiene
+ *   name: SEGURIDAD-HIGIENE
+ *   description: Gestión de productos de seguridad e higiene
  */
 const router = express.Router();
 
@@ -14,7 +14,7 @@ const router = express.Router();
  * /seguridad-higiene:
  *   get:
  *     summary: Obtener todos los productos de seguridad e higiene
- *     tags: [Seguridad e Higiene]
+ *     tags: [SEGURIDAD-HIGIENE]
  *     responses:
  *       200:
  *         description: Lista de productos de seguridad e higiene
@@ -28,7 +28,7 @@ router.get('/', seguridadHigieneController.getAll);
  * /seguridad-higiene/{id}:
  *   get:
  *     summary: Obtener un producto de seguridad e higiene por ID
- *     tags: [Seguridad e Higiene]
+ *     tags: [SEGURIDAD-HIGIENE]
  *     parameters:
  *       - in: path
  *         name: id
@@ -53,7 +53,7 @@ router.get('/:id', seguridadHigieneController.getById);
  * /seguridad-higiene/{id}/pdf:
  *   get:
  *     summary: Obtener la página PDF de un producto de seguridad e higiene
- *     tags: [Seguridad e Higiene]
+ *     tags: [SEGURIDAD-HIGIENE]
  *     parameters:
  *       - in: path
  *         name: id

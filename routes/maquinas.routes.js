@@ -1,20 +1,20 @@
 const express = require('express');
-const maquinasController = require('../controllers/maquinas.controller');
+const maquinasController = require('../controllers/maquinas.controller.js');
 
 /**
  * @swagger
  * tags:
- *   name: Máquinas
- *   description: Gestión de productos de máquinas
+ *   name: MAQUINAS
+ *   description: Gestión de productos de MAQUINAS
  */
 const router = express.Router();
 
 /**
  * @swagger
- * /máquinas:
+ * /maquinas:
  *   get:
  *     summary: Obtener todos los productos de máquinas
- *     tags: [Máquinas]
+ *     tags: [MAQUINAS]
  *     responses:
  *       200:
  *         description: Lista de productos de máquinas
@@ -25,10 +25,10 @@ router.get('/', maquinasController.getAll);
 
 /**
  * @swagger
- * /máquinas/{id}:
+ * /maquinas/{id}:
  *   get:
  *     summary: Obtener un producto de máquinas por ID
- *     tags: [Máquinas]
+ *     tags: [MAQUINAS]
  *     parameters:
  *       - in: path
  *         name: id
@@ -50,10 +50,10 @@ router.get('/:id', maquinasController.getById);
 
 /**
  * @swagger
- * /máquinas/{id}/pdf:
+ * /maquinas/{id}/pdf:
  *   get:
  *     summary: Obtener la página PDF de un producto de máquinas
- *     tags: [Máquinas]
+ *     tags: [MAQUINAS]
  *     parameters:
  *       - in: path
  *         name: id

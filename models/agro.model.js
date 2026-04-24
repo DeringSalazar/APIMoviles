@@ -11,13 +11,19 @@ class AgroModel {
           sub ->> 'name' AS subcategory_name,
           prod ->> 'id' AS product_id,
           prod ->> 'name' AS product_name,
-          prod -> 'images' ->> 0 AS product_image
+          prod ->> 'pdfPage' AS pdf_page,
+          COALESCE(prod -> 'images', '[]'::jsonb) AS product_image
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
         WHERE dc.category_slug = '11'
       `);
-      return rows || [];
+      return (rows || []).map(row => ({
+                ...row,
+                product_images: Array.isArray(row.product_images) 
+                    ? row.product_images 
+                    : []
+            }));
     } catch (error) {
       console.error('Error en getAllAgro:', error);
       throw error;
@@ -34,11 +40,10 @@ class AgroModel {
           sub ->> 'name' AS subcategory_name,
           prod ->> 'id' AS product_id,
           prod ->> 'name' AS product_name,
+          prod ->> 'pdfPage' AS pdf_page,
           COALESCE(prod -> 'features', '[]'::jsonb) AS features,
           COALESCE(prod -> 'applications', '[]'::jsonb) AS applications,
-          COALESCE(prod -> 'images', '[]'::jsonb) AS images,
-          prod ->> 'articleNumber' AS article_number,
-          prod ->> 'page' AS page_number
+          COALESCE(prod -> 'images', '[]'::jsonb) AS images
         FROM digital_catalog dc
         CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
         CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
@@ -51,16 +56,15 @@ class AgroModel {
       const row = rows[0];
 
       return {
-        product_id:        row.product_id,
-        product_name:      row.product_name,
-        category_name:     row.category_name,
-        subcategory_code:  row.subcategory_code,
-        subcategory_name:  row.subcategory_name,
-        features:          row.features ?? [],
-        applications:      row.applications ?? [],
-        images:            row.images ?? [],
-        article_number:    row.article_number,
-        page_number:       row.page_number,
+        product_id: row.product_id,
+        product_name: row.product_name,
+        category_name: row.category_name,
+        subcategory_code: row.subcategory_code,
+        subcategory_name: row.subcategory_name,
+        pdf_page: row.pdf_page,
+        features: row.features ?? [],
+        applications: row.applications ?? [],
+        images: row.images ?? [],
       };
 
     } catch (error) {
@@ -69,59 +73,31 @@ class AgroModel {
     }
   }
 
-  async getAgroByArticle(articleNumber) {
-    try {
-      console.log('Obteniendo producto AGRO por número de artículo:', articleNumber);
-      const { rows } = await pool.query(`
-        SELECT 
-          dc.content::jsonb ->> 'name' AS category_name,
-          sub ->> 'name' AS subcategory_name,
-          prod ->> 'id' AS product_id,
-          prod ->> 'name' AS product_name,
-          prod ->> 'articleNumber' AS article_number,
-          prod ->> 'page' AS page_number,
-          COALESCE(prod -> 'features', '[]'::jsonb) AS features,
-          COALESCE(prod -> 'applications', '[]'::jsonb) AS applications
-        FROM digital_catalog dc
-        CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
-        CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
-        WHERE dc.category_slug = '11'
-          AND prod ->> 'articleNumber' = $1
-      `, [articleNumber]);
+  async getAgroPdfPage(productId) {
+            try {
+                const { rows } = await pool.query(`
+                    SELECT 
+                        prod ->> 'id' AS product_id,
+                        prod ->> 'name' AS product_name,
+                        prod ->> 'pdfPage' AS pdf_page
+                    FROM digital_catalog dc
+                    CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
+                    CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
+                    WHERE dc.category_slug = '11' 
+                    AND prod ->> 'id' = $1
+                    `, [productId]);
 
-      if (!rows.length) return null;
-
-      return rows[0];
-
-    } catch (error) {
-      console.error('Error en getAgroByArticle:', error);
-      throw error;
-    }
-  }
-
-  async searchAgro(searchTerm) {
-    try {
-      console.log('Buscando productos AGRO con término:', searchTerm);
-      const { rows } = await pool.query(`
-        SELECT 
-          prod ->> 'id' AS product_id,
-          prod ->> 'name' AS product_name,
-          prod ->> 'articleNumber' AS article_number,
-          prod ->> 'page' AS page_number
-        FROM digital_catalog dc
-        CROSS JOIN LATERAL jsonb_array_elements(dc.content::jsonb -> 'subcategories') AS sub
-        CROSS JOIN LATERAL jsonb_array_elements(sub -> 'products') AS prod
-        WHERE dc.category_slug = '11'
-          AND (prod ->> 'name' ILIKE $1 OR prod ->> 'articleNumber' ILIKE $1)
-      `, [`%${searchTerm}%`]);
-
-      return rows || [];
-
-    } catch (error) {
-      console.error('Error en searchAgro:', error);
-      throw error;
-    }
-  }
+                if (!rows.length) return null;
+                return {
+                    product_id: rows[0].product_id,
+                    product_name: rows[0].product_name,
+                    pdf_page: rows[0].pdf_page,
+                };
+            } catch (error) {
+                console.error('Error en getAgroPdfPage:', error);
+                throw error;
+            }
+        }
 }
 
 module.exports = new AgroModel();
