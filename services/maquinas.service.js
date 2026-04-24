@@ -1,23 +1,21 @@
-const maquinasModel = require('../models/maquinas.model');
+const maquinasModel = require('../models/maquinas.model.js');
 
 class MaquinasService {
-  constructor(maquinasModel) {
-    this.maquinasModel = maquinasModel;
-  }
+    constructor(maquinasModel) {
+        this.maquinasModel = maquinasModel;
+    }
 
-  async getAll() {
-    return await this.maquinasModel.getAllMaquinas();
-  }
+    async getAll() {
+        return await this.maquinasModel.getAllMaquinas();
+    }
 
-  async getById(id) {
-    const result = await this.maquinasModel.getMaquinaById(id);
-    return result;
-  }
+    async getById(id) {
+        return await this.maquinasModel.getMaquina(id);
+    }
 
-  async getPdfPage(id) {
-    const result = await this.maquinasModel.getMaquinaPdfPage(id);
-    return result;
-  }
+    async getPdfPage(id) {
+        return await this.maquinasModel.getMaquinaPdfPage(id);
+    }
 }
 
 module.exports = new MaquinasService(maquinasModel);

@@ -1,4 +1,4 @@
-const seguridadHigieneModel = require('../models/seguridadHigiene.model');
+const seguridadHigieneModel = require('../models/seguridadHigiene.model.js');
 
 class SeguridadHigieneService {
   constructor(seguridadHigieneModel) {
@@ -10,14 +10,12 @@ class SeguridadHigieneService {
   }
 
   async getById(id) {
-    const result = await this.seguridadHigieneModel.getSeguridadHigieneById(id);
-    return result;
+    return await this.seguridadHigieneModel.getSeguridadHigiene(id);
   }
 
   async getPdfPage(id) {
-    const result = await this.seguridadHigieneModel.getSeguridadHigienePdfPage(id);
-    return result;
+    return await this.seguridadHigieneModel.getSeguridadHigienePdfPage(id);
   }
 }
 
-module.exports = new SeguridadHigieneService(seguridadHigieneModel);
+module.exports = new SeguridadHigieneService(seguridadHigieneModel);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
