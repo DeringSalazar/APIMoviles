@@ -20,13 +20,7 @@
                 WHERE dc.category_slug = '06' 
             `);
             
-            // 👇 Transformar el JSONB a array de strings en JS
-            return (rows || []).map(row => ({
-                ...row,
-                product_images: Array.isArray(row.product_images) 
-                    ? row.product_images 
-                    : []
-            }));
+            return rows || [];
         } catch (error) {
             console.error('Error en getAllElectricidad:', error);
             throw error;

@@ -11,6 +11,7 @@ const getViewer = (req, res) => {
     if (!htmlContent) {
       return res.status(500).json({ error: 'Error interno al procesar el visor del catálogo' });
     }
+    res.setHeader('Cache-Control', 'public, max-age=86400');
 
   
     res.setHeader('Content-Type', 'text/html');
