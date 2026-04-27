@@ -2,19 +2,17 @@ const catalogoService = require('../services/catalogo.service');
 
 const getViewer = (req, res) => {
   try {
-  
-    const { page } = req.query;
-    
-  
-    const htmlContent = catalogoService.getViewerTemplate(page);
+    const { page, categorySlug } = req.query;
+
+    const htmlContent = catalogoService.getViewerTemplate(page, categorySlug);
 
     if (!htmlContent) {
-      return res.status(500).json({ error: 'Error interno al procesar el visor del catálogo' });
+      return res.status(500).json({ 
+        error: 'Error al procesar el visor del catálogo para la categoría indicada' 
+      });
     }
-    res.setHeader('Cache-Control', 'public, max-age=86400');
 
-  
-    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.send(htmlContent);
 
   } catch (error) {
