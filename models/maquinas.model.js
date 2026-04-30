@@ -21,12 +21,7 @@ class MaquinasModel {
                 WHERE dc.category_slug = '08'
             `);
 
-            return (rows || []).map(row => ({
-                ...row,
-                product_images: Array.isArray(row.product_images)
-                    ? row.product_images
-                    : []
-            }));
+            return rows || [];
         } catch (error) {
             console.error('Error en getAllMaquinas:', error);
             throw error;

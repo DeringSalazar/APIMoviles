@@ -21,12 +21,7 @@ class SeguridadHigieneModel {
                 WHERE dc.category_slug = '09'
             `);
 
-            return (rows || []).map(row => ({
-                ...row,
-                product_images: Array.isArray(row.product_images)
-                    ? row.product_images
-                    : []
-            }));
+            return rows || [];
         } catch (error) {
             console.error('Error en getAllSeguridadHigiene:', error);
             throw error;
